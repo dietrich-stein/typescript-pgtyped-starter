@@ -35,9 +35,9 @@ information is strictly prohibited. For example:
 # The MIT License (MIT)
 
 Copyright (c) 2023 Dietrich Stein
-Copyright (c) 2023 Firsty McFirsterson
+Copyright (c) 2024 Firsty McFirsterson
 ...
-Copyright (c) 2023 Lasty McLasterson
-Copyright (c) 2010 <YOUR_NAME_HERE>
+Copyright (c) 2025 Lasty McLasterson
+Copyright (c) 2025 <YOUR_NAME_HERE>
 
 ```
