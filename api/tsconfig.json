@@ -1,0 +1,46 @@
+{
+  // This is an alias to @tsconfig/node16: https://github.com/tsconfig/bases
+  "extends": "ts-node/node16/tsconfig.json",
+  "compileOnSave": true,
+  "compilerOptions": {
+    "declaration": false, // Generate corresponding .d.ts file
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "module": "nodenext",
+    "newLine": "LF",
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": false,
+    "noUnusedParameters": false,
+    "noUnusedLocals": false,
+    // "outDir": "dist", ???
+    "skipLibCheck": true,
+    "sourceMap": false,
+    "strictNullChecks": false,
+    "target": "ES2017",
+
+    "moduleResolution": "node", // Resolve modules using Node.js style
+    "allowSyntheticDefaultImports": true, // Allow default imports from modules with no default export
+    "isolatedModules": true,
+    "types": [
+      "node",
+    ],
+    "baseUrl": ".",
+		"paths": {
+			"__generated__/*": ["__generated__/*"],
+		},
+  },
+  "ts-node": {
+    "esm": true,
+    "transpileOnly": false, // It is faster to skip typechecking. Remove if you want ts-node to do typechecking.
+    "files": true,
+    "compilerOptions": {
+      "module": "nodenext",
+    }
+  },
+  "include": [
+    "./server.ts",
+    "./__generated__/**/*.ts",
+  ],
+}

@@ -1,38 +1,42 @@
 {
-  "$schema": "https://json.schemastore.org/tsconfig",
-  "display": "LEE (Node 14)",
+  // This is an alias to @tsconfig/node16: https://github.com/tsconfig/bases
+  "extends": "ts-node/node16/tsconfig.json",
   "compilerOptions": {
-    "allowJs": true, // Allow JavaScript files to be compiled
-    "skipLibCheck": true, // Skip type checking of all declaration files
-    "esModuleInterop": true, // Disables namespace imports (import * as fs from "fs") and enables CJS/AMD/UMD style imports (import fs from "fs")
-    "allowSyntheticDefaultImports": true, // Allow default imports from modules with no default export
+    "declaration": false, // Generate corresponding .d.ts file
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "noUnusedParameters": false, // Report errors on unused parameters
+    "noUnusedLocals": false, // Report errors on unused locals
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "es2017"
+    ],
+    "module": "CommonJS", // ESNext? // Specify module code generation
+    "target": "ES2017", // ES2016 = ES7, ES2017 = ES8
+
     "strict": true, // Enable all strict type checking options
+    "esModuleInterop": true, // Disables namespace imports (import * as fs from "fs") and enables CJS/AMD/UMD style imports (import fs from "fs")
+    "skipLibCheck": true, // Skip type checking of all declaration files
     "forceConsistentCasingInFileNames": true, // Disallow inconsistently-cased references to the same file.
-    "module": "ESNext", // Specify module code generation
     "moduleResolution": "node", // Resolve modules using Node.js style
+
+    "allowJs": true, // Allow JavaScript files to be compiled
+    "allowSyntheticDefaultImports": true, // Allow default imports from modules with no default export
     "isolatedModules": true, // Unconditionally emit imports for unresolved files
     "resolveJsonModule": true, // Include modules imported with .json extension
     "noEmit": true, // Do not emit output (meaning do not compile code, only perform type checking)
     "jsx": "preserve", // Support JSX in .tsx files
     "sourceMap": true, // Generate corresponding .map file
-    "declaration": true, // Generate corresponding .d.ts file
-    "noUnusedLocals": true, // Report errors on unused locals
-    "noUnusedParameters": true, // Report errors on unused parameters
     "incremental": true, // Enable incremental compilation by reading/writing information from prior compilations to a file on disk
     "noFallthroughCasesInSwitch": true, // Report errors for fallthrough cases in switch statement
-    "target": "es2017",
     "types": [
       //"node", // causes the whole file to error: Cannot find type definition file for 'node'
       "webpack"
     ],
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "es2017" // esnext
-    ],
     "baseUrl": ".",
 		"paths": {
-			"src/*": ["src/*"]
+			"src/*": ["src/*"],
 		},
     "verbatimModuleSyntax": false,
 		"importsNotUsedAsValues": "remove"
@@ -43,11 +47,15 @@
     }
   },
   "include": [
-    "src/**/*",
+    "src/**/*.ts",
     "webpack.config.ts"
+    //"api/server.ts"
   ],
   "exclude": [
     "node_modules/*",
-    "public/*"
+    "public/*",
+    "schema/*",
+    "sql/*",
+    "api/**/*.ts"
   ]
 }

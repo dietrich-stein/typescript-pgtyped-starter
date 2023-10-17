@@ -1,10 +1,8 @@
 import './global.css';
 
-console.log('hello');
-
 window.addEventListener('load', init);
 
-function init() {
+async function init() {
   let el = document.getElementById("root");
   if (el === null) {
     return;

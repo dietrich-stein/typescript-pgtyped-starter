@@ -1,0 +1,23 @@
+# More ideas:
+# https://github.com/adelsz/pgtyped/blob/master/packages/example/docker-compose.yml
+
+version: "3.9"
+
+services:
+  db:
+    image: postgres:14.6-alpine
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=root
+      # Connecting to "postgres" lets use DROP DATABASE IF EXISTS
+      # - POSTGRES_DB=postgres
+      - POSTGRES_DB=typescript_starter
+    ports:
+      - 5432:5432
+    volumes:
+      - db:/var/lib/postgresql/data
+      - ./sql/:/docker-entrypoint-initdb.d/
+
+volumes:
+  db:
