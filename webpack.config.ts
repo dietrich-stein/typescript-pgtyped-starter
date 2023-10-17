@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import path from 'path';
 import Webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';

@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import express from "express";
 import pg from 'pg';
 import {
@@ -9,11 +10,11 @@ import { Server, Path, GET, PathParam } from "typescript-rest";
 
 const { Client } = pg;
 const dbConfig = {
-  host: process.env.PGHOST ?? '127.0.0.1',
-  user: process.env.PGUSER ?? 'postgres',
-  password: process.env.PGPASSWORD ?? 'root',
-  database: process.env.PGDATABASE ?? 'typescript_starter',
-  port: (process.env.PGPORT ? Number(process.env.PGPORT) : undefined) ?? 5432,
+  host: process.env.PGHOST,
+  user: process.env.PGUSER,
+  password: process.env.PGPASSWORD,
+  database: process.env.PGDATABASE,
+  port: Number(process.env.PGPORT)
 };
 
 @Path("/books")

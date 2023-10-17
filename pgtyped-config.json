@@ -8,6 +8,5 @@
   ],
   "srcDir": "./src/",
   "failOnError": false,
-  "camelCaseColumnNames": false,
-  "dbUrl": "postgres://postgres:root@localhost/typescript_starter"
+  "camelCaseColumnNames": false
 }

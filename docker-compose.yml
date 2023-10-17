@@ -8,13 +8,13 @@ services:
     image: postgres:14.6-alpine
     restart: unless-stopped
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=root
-      # Connecting to "postgres" lets use DROP DATABASE IF EXISTS
-      # - POSTGRES_DB=postgres
-      - POSTGRES_DB=typescript_starter
+      - POSTGRES_HOST=${PGHOST}
+      - POSTGRES_PORT=${PGPORT}
+      - POSTGRES_DB=${PGDATABASE}
+      - POSTGRES_USER=${PGUSER}
+      - POSTGRES_PASSWORD=${PGPASSWORD}
     ports:
-      - 5432:5432
+      - ${PGPORT}:${PGPORT}
     volumes:
       - db:/var/lib/postgresql/data
       - ./sql/:/docker-entrypoint-initdb.d/
