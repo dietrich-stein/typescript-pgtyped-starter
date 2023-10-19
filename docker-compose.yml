@@ -17,7 +17,7 @@ services:
       - ${PGPORT}:${PGPORT}
     volumes:
       - db:/var/lib/postgresql/data
-      - ./sql/:/docker-entrypoint-initdb.d/
+      - ./models/schema/:/docker-entrypoint-initdb.d/
 
 volumes:
-  db:
+  db: {}

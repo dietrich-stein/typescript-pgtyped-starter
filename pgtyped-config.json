@@ -6,7 +6,7 @@
       "emitTemplate": "./api/__generated__/{{name}}.queries.ts"
     }
   ],
-  "srcDir": "./src/",
+  "srcDir": "./models/queries/",
   "failOnError": false,
   "camelCaseColumnNames": false
 }

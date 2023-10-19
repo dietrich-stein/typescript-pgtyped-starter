@@ -6,13 +6,12 @@
     "build": "cross-env NODE_ENV=production webpack",
     "start": "webpack serve",
     "pretty": "prettier --write \"./**/*.{js,ts,json}\"",
-    "postgres:reset": "docker-compose down --volumes && docker volume rm -f typescript-starter_db && bash -c 'rm -f sql/schema.sql'",
-    "postgres:schema": "bash -c 'rm -f sql/schema.sql && cat schema/*.sql > sql/schema.sql'",
-    "postgres:compose": "npm run postgres:reset && npm run postgres:schema && docker-compose up --no-start",
+    "postgres:reset": "docker-compose down --volumes && docker volume rm -f typescript-starter_db",
+    "postgres:compose": "npm run postgres:reset && docker-compose up --no-start",
     "postgres:serve": "docker-compose start",
-    "postgres:pgtyped:watch": "npx pgtyped -w -c ./pgtyped-config.json",
-    "postgres:all": "npm run postgres:reset && npm run postgres:compose && npm run postgres:serve && npm run postgres:pgtyped:watch",
-    "api:rest:serve": "npx ts-node --project api/tsconfig.json api/server.ts"
+    "pgtyped:watch": "npx pgtyped -w -c ./pgtyped-config.json",
+    "pgtyped:all": "npm run postgres:reset && npm run postgres:compose && npm run postgres:serve && npm run pgtyped:watch",
+    "api:express:serve": "npx ts-node --project api/tsconfig.json api/server.ts"
   },
   "repository": {
     "type": "git",

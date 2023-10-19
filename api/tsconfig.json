@@ -14,12 +14,10 @@
     "noImplicitThis": false,
     "noUnusedParameters": false,
     "noUnusedLocals": false,
-    // "outDir": "dist", ???
     "skipLibCheck": true,
     "sourceMap": false,
     "strictNullChecks": false,
     "target": "ES2017",
-
     "moduleResolution": "node", // Resolve modules using Node.js style
     "allowSyntheticDefaultImports": true, // Allow default imports from modules with no default export
     "isolatedModules": true,
@@ -41,6 +39,7 @@
   },
   "include": [
     "./server.ts",
+    "./services/**/*.ts",
     "./__generated__/**/*.ts",
   ],
 }

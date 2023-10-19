@@ -31,7 +31,6 @@
     "incremental": true, // Enable incremental compilation by reading/writing information from prior compilations to a file on disk
     "noFallthroughCasesInSwitch": true, // Report errors for fallthrough cases in switch statement
     "types": [
-      //"node", // causes the whole file to error: Cannot find type definition file for 'node'
       "webpack"
     ],
     "baseUrl": ".",
@@ -49,13 +48,11 @@
   "include": [
     "src/**/*.ts",
     "webpack.config.ts"
-    //"api/server.ts"
   ],
   "exclude": [
     "node_modules/*",
     "public/*",
-    "schema/*",
-    "sql/*",
-    "api/**/*.ts"
+    "models/*",
+    "api/*"
   ]
 }
