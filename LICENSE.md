@@ -19,25 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
-# Housekeeping Addendum
-
-Permission is hereby granted, to any person having modified the other files
-of this software, to also modify the copyright notice above in order append
-one additional line including a first year of contribution and a name.
-
-The added line must immediately follow the last of the existing copyright
-lines and must duplicate the existing format precisely. Including your
-email address, website, social media handles, emojis, or any other
-information is strictly prohibited. For example:
-
-```
-# The MIT License (MIT)
-
-Copyright (c) 2023 Dietrich Stein
-Copyright (c) 2024 Firsty McFirsterson
-...
-Copyright (c) 2025 Lasty McLasterson
-Copyright (c) 2025 <YOUR_NAME_HERE>
-
-```

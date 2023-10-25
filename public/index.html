@@ -5,11 +5,82 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, user-scalable=no, shrink-to-fit=no" />
   <title>TypeScript Starter</title>
   <link rel="icon" href="./img/icon.png">
-  <link rel='stylesheet' href='/build/bundle.css'>
-  <script defer src='/build/bundle.js'></script>
+  <link rel='stylesheet' href='/dist/bundle.css'>
+  <script defer src='/dist/bundle.js'></script>
 </head>
 <body>
   <noscript>Please enable JavaScript to view this application.</noscript>
-  <div id="root"></div>
+  <div id="root">
+    <fieldset>
+      <p>
+        <ul class="dropdown">
+          <li>
+            <a href="#">❤ Saved Requests</a>
+            <ul>
+              <li>
+                <a href="#">Development</a>
+                <ul>
+                  <li><a href="#">GET</a></li>
+                  <li><a href="#">POST</a></li>
+                  <li><a href="#">PUT</a></li>
+                  <li><a href="#">PATCH</a></li>
+                  <li><a href="#">DELETE</a></li>
+                </ul>
+              </li>
+              <li>
+                <a href="#">Production</a>
+                <ul>
+                  <li><a href="#">GET</a></li>
+                  <li><a href="#">POST</a></li>
+                  <li><a href="#">PUT</a></li>
+                  <li><a href="#">PATCH</a></li>
+                  <li><a href="#">DELETE</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </p>
+      <p>
+        <input id="client_id" type="text" placeholder="Client id" name="client_id" />
+        <input id="client_secret" type="text" placeholder="Client secret" name="client_secret" />
+      </p>
+      <p class="w-full">
+        <select name="requestMethod" id="requestMethod" class="float-left w-2_12 open-right">
+          <option selected="selected">GET</option>
+          <option>POST</option>
+          <!--
+          <option>PUT</option>
+          <option>PATCH</option>
+          <option>DELETE</option>
+          -->
+        </select>
+        <select name="protocol" id="protocol" class="float-left w-2_12 open-both">
+          <option selected="selected" value="http">http://</option>
+          <option value="https">https://</option>
+        </select>
+        <!--<select name="requestHistory" id="requestType"></select>-->
+        <!--
+          8.333333% * other cols count
+          * 2 = 16.666666
+          * 4 = 33.333333
+        -->
+        <input name="url" id="url" class="float-left open-left" style="width: calc(100% - 33.333333%);" placeholder="localhost:8080/widgets">
+      </p>
+      <p class="clear-both">
+        <label for="requestBody">Body</label>
+        <textarea name="requestBody" id="requestBody" class=""></textarea>
+      </p>
+      <p>
+        <input id="submit" class="" type="submit" value="Send Request" />
+        <input id="submit" class="" type="submit" value="Clear Recent" />
+        <input id="submit" class="" type="submit" value="Save Request" />
+      </p>
+      <p>
+        Response
+      </p>
+      <span id="output"></span>
+    </fieldset>
+  </div>
 </body>
 </html>

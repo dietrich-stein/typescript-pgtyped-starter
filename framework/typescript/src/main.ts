@@ -1,14 +1,49 @@
-import './global.css';
-import CrudTable from './crudTable';
+//import CrudTable from './crudTable';
 //import { Cipher } from 'crypto';
 
-window.addEventListener('load', init);
+//window.addEventListener('load', init);
 
-async function init() {
-  let el = document.getElementById("root");
-  if (el === null) {
+//type HTMLInputEvent<T extends HTMLInputElement> = Event & {
+  //target: T;
+//}
+
+//async function init() {
+  /*
+  //let elRoot = document.getElementById('root');
+  let elRequestMethod = document.getElementById('requestMethod') as HTMLInputElement;
+  */
+  /*
+  if (
+    //elRoot === null
+    elRequestMethod === null
+  ) {
     return;
   }
+  //elRoot.innerHTML = ``;
+  elRequestMethod.addEventListener('change', (event: HTMLInputEvent<HTMLSelectElement>) => {
+    if (
+      event === null ||
+      event.target === null ||
+      typeof event.target.value === 'undefined'
+    ) {
+      return;
+    }
+    const target = event.target as HTMLInputElement;
+    console.log(event.target.value);
+  });
+  */
+
+  /*
+  fetch('https://api.github.com/users/xiaotian/repos').then(
+    resp => resp.json() // this returns a promise
+  ).then(repos => {
+    for (const repo of repos) {
+      console.log(repo.name);
+    }
+  }).catch(ex => {
+    console.error(ex);
+  })
+  */
 
   /*const itemHeaders = `
     <th>Title</th>
@@ -80,4 +115,4 @@ async function init() {
     elOutput.focus();
   }, 20);
   */
-}
+//}

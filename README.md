@@ -1,4 +1,4 @@
-# Typescript-PgTyped-REST-Starter
+# Typescript-Starter-Engine
 
 ## Overview
 
@@ -40,19 +40,29 @@ This is a standalone full-stack starter project that you can customize to your l
 - In another dedicated terminal window run: `npm run api:express:serve`
   - Now you can test those changes in your API tester or by visiting the API endpoints like: http://localhost:3000/users
 
+## Automatic Typesafe Query Generation
+
+1. You have "schema files", which are raw SQL files that you can maintain here: `server/api/models/schema`. They have names prefixed with numbers like `00-`, `01-`, etc. Maintain these prefixes to control the order that docker will see them on your filesystem while containerizing your database server.
+2. The `db:compose` command generates a docker container for you. It uses the schema files to set up the database schema and the initial table tows.
+3. You also have "query files", which are also are raw SQL files. These contain all of the queries that you need for your application. You can maintain them here: `server/api/models/queries`.
+3. The `pgtyped:watch` command automatically parses your query files and on each change you save to the files it extracts all the queries and generates strictly typed TypeScript queries in `server/api/__generated__`.
+
 ## Command Reference
 
 |Command|Description|
 |-------|-----------|
-|`npm run build`|Builds and bundles the front-end for deployment.|
-|`npm run start`|Starts a local web server for development.|
-|`npm run pretty`|Runs the auto-formatter on the codebase.|
-|`npm run postgres:reset`|Removes all the docker things, and the `schema.sql`<br >file but not the generated SQL files in `api/__generated__`.<br /> You probably wont need it.<br />|
-|`npm run postgres:compose`|Runs the `postgres:reset` command and then initializes<br />the docker things. Somewhat useful for debugging your<br /> changes to the docker things or the schema files in `/schema`.<br />|
-|`npm run postgres:serve`|Runs the composed docker container. About<br /> as useful as our `compose` command. In a production<br /> environment this is preferable to `pgtyped:all`. Useful.<br />|
-|`npm run pgtyped:watch`|Watches your `models//**/*.sql` files for changes<br /> and introspects the dockerized database to<br /> generate typesafe queries as<br /> `api/__generated__/foo.queries.ts`.<br /> Requires a terminal session. Super useful.<br />|
-|`npm run pgtyped:all`|Runs `postgres:reset`, `postgres:compose`, `postgres:serve`, and `pgtyped:watch` all<br /> in sequence. Requires a terminal session. Super useful.<br />|
-|`npm run api:express:serve`|Runs an express-based API server with the<br /> `typescript-rest` extension.<br /> Requires a terminal session. Super useful.<br />|
+|`npm run webpack:build`|Builds and bundles the front-end for development deployment.|
+|`npm run webpack:build:production`|Builds and bundles the front-end for production deployment.|
+|`npm run webpack:start`|Starts a local web server for development.|
+|`npm run db:reset`|Shuts down dockerized database container server and deletes it.|
+|`npm run db:compose`|Runs the `db:reset` command and then initializes<br />the dockerized database server.<br />|
+|`npm run db:compose:production`|Runs the `db:reset` command and then initializes<br />the dockerized database server with production environment vars. It is<br /> better to use Kubernetes in actual production environments.<br />|
+|`npm run db:start`|Runs the database server container using development environment vars.<br />|
+|`npm run db:start:production`|Runs the database server container using production environment vars.<br />|
+|`npm run pgtyped:watch`|Watches your `models/queries` SQL files for changes and generates<br /> files containing typesafe queries. Requires a terminal session.<br />|
+|`npm run pgtyped:all`|Runs `db:reset`, `db:compose`, `db:start`, and then `pgtyped:watch`.<br />  Requires a terminal session. <br />|
+|`npm run api:express:serve`|Runs an express-based API server with the<br /> [https://github.com/thiagobustamante/typescript-rest](typescript-rest) extension.<br /> Requires a terminal session.<br />|
+|`npm run utils:prettier`|Runs the auto-formatter on the codebase.|
 
 ## Resources
 - https://github.com/shfrmn/pgtyped-model - Whoa. Putting this at the top.

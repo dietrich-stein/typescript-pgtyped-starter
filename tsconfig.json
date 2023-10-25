@@ -35,7 +35,10 @@
     ],
     "baseUrl": ".",
 		"paths": {
-			"src/*": ["src/*"],
+			"framework/typescript/src/*": [
+        //"framework/*",
+        "framework/typescript/src/*"
+      ],
 		},
     "verbatimModuleSyntax": false,
 		"importsNotUsedAsValues": "remove"
@@ -46,13 +49,13 @@
     }
   },
   "include": [
-    "src/**/*.ts",
-    "webpack.config.ts"
+    "framework/index.ts",
+    "framework/typescript/src/**/*.ts",
+    "tools/webpack/webpack.config.ts"
   ],
   "exclude": [
     "node_modules/*",
-    "public/*",
-    "models/*",
-    "api/*"
+    "public/*", // ts files should not be in /public
+    "server/api/*" // has separate tsconfig for experimental decorator support
   ]
 }

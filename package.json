@@ -1,21 +1,24 @@
 {
   "private": true,
-  "name": "typescript-starter",
+  "name": "typescript-pgtyped-rest-starter",
   "version": "1.0.0",
   "scripts": {
-    "build": "cross-env NODE_ENV=production webpack",
-    "start": "webpack serve",
-    "pretty": "prettier --write \"./**/*.{js,ts,json}\"",
-    "postgres:reset": "docker-compose down --volumes && docker volume rm -f typescript-starter_db",
-    "postgres:compose": "npm run postgres:reset && docker-compose up --no-start",
-    "postgres:serve": "docker-compose start",
-    "pgtyped:watch": "npx pgtyped -w -c ./pgtyped-config.json",
-    "pgtyped:all": "npm run postgres:reset && npm run postgres:compose && npm run postgres:serve && npm run pgtyped:watch",
-    "api:express:serve": "npx ts-node --project api/tsconfig.json api/server.ts"
+    "webpack:build": "unset NODE_ENV && dotenv -e .env webpack --config tools/webpack/webpack.config.js",
+    "webpack:build:production": "unset NODE_ENV && dotenv -e .env.production webpack --config tools/webpack/webpack.config.js",
+    "webpack:start": "webpack serve --config tools/webpack/webpack.config.js",
+    "db:reset": "docker-compose down --file ./server/database/compose.yml --volumes && docker volume rm -f typescript-starter_db",
+    "db:compose": "npm run db:reset && docker-compose --file ./server/database/compose.yml --env-file ./env up --no-start",
+    "db:compose:production": "npm run db:reset && docker-compose --file ./server/database/compose.yml --env-file ./env.production up --no-start",
+    "db:start": "docker-compose start --file ./server/database/compose.yml --env-file ./env",
+    "db:start:production": "docker-compose start --file ./server/database/compose.yml --env-file ./env.production",
+    "pgtyped:start": "npx pgtyped -w -c ./pgtyped-config.json",
+    "pgtyped:all": "npm run db:reset && npm run db:compose && npm run db:start && npm run pgtyped:watch",
+    "api:start": "npx ts-node --project server/api/tsconfig.json server/api/server.ts",
+    "utils:prettier": "prettier --write \"./**/*.{js,ts,json}\""
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dietrich-stein/typescript-starter.git"
+    "url": "git+https://github.com/dietrich-stein/typescript-pgtyped-rest-starter.git"
   },
   "keywords": [],
   "author": "",
@@ -37,7 +40,6 @@
     "babel-loader": "^8.2.2",
     "clean-webpack-plugin": "^4.0.0",
     "core-js": "^3.9.0",
-    "cross-env": "^7.0.3",
     "css-loader": "^6.8.1",
     "css-minimizer-webpack-plugin": "^3.0.0",
     "eslint": "^8.41.0",

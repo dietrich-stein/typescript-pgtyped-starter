@@ -1,0 +1,13 @@
+span#output {
+  padding: 30px;
+  display: block;
+  font-family: Consolas, 'Courier New', Courier, monospace;
+  white-space: pre;
+  overflow-y: visible;
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 1px solid #333333;
+  border-radius: 4px;
+  &:focus-visible {
+      outline: none; /*-webkit-focus-ring-color auto 1px*/
+  }
+}

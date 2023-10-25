@@ -1,3 +1,42 @@
+/*
+.crud-table {
+  display: flex;
+  flex-direction: column;
+}
+.crud-table > *:not(:first-child) {
+  margin-top: 10px;
+}
+.crud-table input[type=checkbox] {
+  cursor: pointer;
+}
+.crud-table [data-toolbar] [data-delete-selected] {
+  display: none;
+}
+.crud-table [data-toolbar][data-selected] [data-delete-selected] {
+  display: block;
+}
+.crud-table [data-toolbar][data-selected] > :not([data-delete-selected]) {
+  display: none;
+}
+.crud-table [data-table],
+.crud-table [data-table] th,
+.crud-table [data-table] td{
+  border: 1px solid #444;
+  border-collapse: collapse;
+  padding: 4px 8px;
+  background-color: rgba(255, 255, 255, 0.025);
+}
+.crud-table [data-table] :is(tr,th) :last-child {
+  text-align: right;
+}
+.crud-table [data-table] :is(tr,th) :first-child {
+  text-align: center;
+}
+.crud-table [data-table] .row-empty {
+  color: #a00;
+}
+*/
+
 type CrudTableRenderRow = (item: any, index: number) => HTMLTableRowElement | null;
 
 type CrudTableSelectRows = () => NodeListOf<Element> | null;

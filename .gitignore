@@ -1,6 +1,9 @@
 .DS_Store
 .env
-.env.prod
+.env.production
 .vscode/
 /node_modules
-public/build/bundle.*
+dist/bundle.*
+dist/bundle.*
+dist/bundle.*
+dist/bundle.*

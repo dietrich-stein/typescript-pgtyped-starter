@@ -20,13 +20,14 @@ const isDev = !isProd;
 /**
  * Define paths to any stylesheets you wish to include at the top of the CSS bundle.
  */
-const stylesheets = [
-  './src/styles/main.scss'
-];
+/*const stylesheets = [
+  path.resolve(__dirname, './framework') + '/typescript/src/styles/mvp.css',
+  path.resolve(__dirname, './framework') + '/typescript/src/styles/main.scss'
+];*/
 
 /**
- * Change this to `true` to generate source maps alongside your production bundle. This is useful for debugging, but
- * will increase total bundle size and expose your source code.
+ * Change this to `true` to generate source maps alongside your production bundle.
+ * This is useful for debugging, but will increase total bundle size and expose your source code.
  */
 const sourceMapsInProduction = false;
 
@@ -34,16 +35,11 @@ const config: MergedConfiguration = {
   mode: isProd ? 'production' : 'development',
   entry: {
     bundle: [
-      ...stylesheets,
-      './src/main.ts'
+      //...stylesheets,
+      path.resolve(__dirname, './framework') + '/typescript/index.ts'
     ]
   },
   resolve: {
-    /*alias: {
-      //src: path.resolve('src')
-      //'@src': path.resolve(__dirname, 'src/'),
-      //'@styles': path.resolve(__dirname, 'src/styles/'),
-    },*/
     extensions: [
       '.ts',
       '.tsx',
@@ -51,26 +47,27 @@ const config: MergedConfiguration = {
       '.scss',
       '.css'
     ],
+    mainFiles: ['index'],
     mainFields: [
       'browser',
       'module',
       'main'
     ],
-    //modules: [path.resolve(__dirname, 'src'), 'node_modules']
-    //conditionNames: ['browser']
   },
   output: {
-    path: path.resolve(__dirname, 'public/build'),
-    publicPath: '/build/',
+    path: path.resolve(__dirname, 'public'),
+    publicPath: '/dist/',
     filename: '[name].js',
     chunkFilename: '[name].[id].js'
   },
   module: {
     rules: [
+      /*
       {
-        test: /\.tsx?$/, // /\.(?:js|ts)$/,
+        test: /\.tsx?$/,
         include: [
-          path.resolve(__dirname, 'src'),
+          path.resolve(__dirname, 'framework/typescript'),
+          path.resolve(__dirname, 'framework/typescript/src'),
         ],
         exclude: [
           /node_modules/,
@@ -99,6 +96,8 @@ const config: MergedConfiguration = {
           }
         }
       },
+      */
+      /*
       {
         test: /\.(scss|sass)$/,
         use: [
@@ -119,6 +118,8 @@ const config: MergedConfiguration = {
           'sass-loader'
         ]
       },
+      */
+      /*
       {
         test: /\.css$/,
         use: [
@@ -126,6 +127,7 @@ const config: MergedConfiguration = {
           'css-loader'
         ]
       },
+      */
       {
         test:  /\.(svg|ico|jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|cur|ani|pdf)(\?.*)?$/,
         loader: 'file-loader',
@@ -148,11 +150,16 @@ const config: MergedConfiguration = {
     }
   },
   stats: {
-    chunks: false,
-    chunkModules: false,
-    modules: false,
+    //noInfo: false,
+    //contentBase: './dist',
+    chunks: true,
+    chunkModules: true,
+    modules: true,
     assets: true,
-    entrypoints: false
+    entrypoints: true,
+    errors: true,
+    reasons: true,
+    errorDetails: true,
   },
   target: isDev ? 'web' : 'browserslist',
 }
