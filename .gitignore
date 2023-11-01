@@ -3,7 +3,4 @@
 .env.production
 .vscode/
 /node_modules
-dist/bundle.*
-dist/bundle.*
-dist/bundle.*
-dist/bundle.*
+dist/
