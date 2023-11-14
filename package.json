@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "typescript-pgtyped-starter",
-  "version": "0.0.2-alpha",
+  "version": "0.0.3-alpha",
   "scripts": {
     "webpack:build": "unset NODE_ENV && dotenv -e .env webpack --config tools/webpack/webpack.config.js",
     "webpack:build:production": "unset NODE_ENV && dotenv -e .env.production webpack --config tools/webpack/webpack.config.js",
