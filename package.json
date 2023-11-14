@@ -14,7 +14,9 @@
     "pgtyped:start": "npx pgtyped -w -c ./pgtyped-config.json",
     "pgtyped:all": "npm run db:reset && npm run db:compose && npm run db:start && npm run pgtyped:watch",
     "api:start": "npx ts-node --project server/api/tsconfig.json server/api/server.ts",
-    "utils:prettier": "prettier --write \"./**/*.{js,ts,json}\""
+    "utils:prettier": "prettier --write \"./**/*.{js,ts,json}\"",
+    "deps:check": "npm-check --skip-unused",
+    "deps:update": "npm-check --update --skip-unused --save-exact"
   },
   "repository": {
     "type": "git",
@@ -46,6 +48,7 @@
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
     "mini-css-extract-plugin": "^2.7.6",
+    "npm-check": "^6.0.1",
     "postcss": "8.3",
     "postcss-loader": "^5.0.0",
     "prettier": "^2.8.8",
@@ -70,5 +73,9 @@
     "express": "^4.18.2",
     "pg": "^8.11.3",
     "typescript-rest": "^3.0.4"
+  },
+  "engines" : {
+    "npm" : ">=9.8.1 <10.0.0",
+    "node" : ">=18.18.2 <19.0.0"
   }
 }
