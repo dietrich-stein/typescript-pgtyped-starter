@@ -1,24 +1,16 @@
-# Typescript-Starter-Engine
+# TypeScript-PgTyped-Starter
 
 ## Overview
 
-This is a standalone full-stack starter project that you can customize to your liking. You may want to add a testing framework. A frontend framework like Svelte, Vue, or React might even be nice. If you want an ORM there are probably other starters out there that would be better suited for your needs. The rationale behind this starter is that because ORMs are great until they ain't we insist that we can write raw SQL queries to serve as the source of truth for typesafe tooling that increasingly automates the various kinds of mapping needed for entities and services.
+This is a standalone full-stack starter project that you can customize to your liking.
 
 📦 What's in the box?
 
-#### Full stack
-
 - Node.js
 - TypeScript
-
-#### Backend
-
 - PostgreSQL (Dockerized)
 - PgTyped (Automatic Typesafe Query Generation)
 - Express & typescript-rest (REST API)
-
-#### Frontend
-
 - Webpack
 - Babel
 - Sass/SCSS
