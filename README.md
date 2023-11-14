@@ -1,5 +1,8 @@
 # TypeScript-PgTyped-Starter
 
+> ALPHA RELEASE WARNING<br><br>
+> Please be advised NOT to use this until I have finished improving it. At that time I will release it as version `1.0.0` and will remove this warning.<br><br>
+
 ## Overview
 
 This is a standalone full-stack starter project that you can customize to your liking.

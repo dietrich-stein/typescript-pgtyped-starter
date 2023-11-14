@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "typescript-pgtyped-starter",
-  "version": "1.0.0",
+  "version": "0.0.2-alpha",
   "scripts": {
     "webpack:build": "unset NODE_ENV && dotenv -e .env webpack --config tools/webpack/webpack.config.js",
     "webpack:build:production": "unset NODE_ENV && dotenv -e .env.production webpack --config tools/webpack/webpack.config.js",
@@ -18,7 +18,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dietrich-stein/typescript-pgtyped-rest-starter.git"
+    "url": "git+https://github.com/dietrich-stein/typescript-pgtyped-starter.git"
   },
   "keywords": [],
   "author": "",
