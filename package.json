@@ -6,7 +6,7 @@
     "webpack:build": "unset NODE_ENV && dotenv -e .env webpack --config tools/webpack/webpack.config.js",
     "webpack:build:production": "unset NODE_ENV && dotenv -e .env.production webpack --config tools/webpack/webpack.config.js",
     "webpack:start": "webpack serve --config tools/webpack/webpack.config.js",
-    "db:reset": "docker-compose down --file ./server/database/compose.yml --volumes && docker volume rm -f typescript-starter_db",
+    "db:reset": "docker-compose down --file ./server/database/compose.yml --volumes && docker volume rm -f typescript-pgtyped-starter_db",
     "db:compose": "npm run db:reset && docker-compose --file ./server/database/compose.yml --env-file ./env up --no-start",
     "db:compose:production": "npm run db:reset && docker-compose --file ./server/database/compose.yml --env-file ./env.production up --no-start",
     "db:start": "docker-compose start --file ./server/database/compose.yml --env-file ./env",
