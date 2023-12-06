@@ -1,0 +1,26 @@
+# More ideas:
+# https://github.com/adelsz/pgtyped/blob/master/packages/example/docker-compose.yml
+
+version: "3.9"
+
+# Set so-called "project" name here for "postgresql_volume" as volume name
+name: "mongo"
+
+services:
+  mongo:
+    container_name: mongo_container
+    image: mongo:6-jammy
+    restart: unless-stopped
+    environment:
+      - MONGODB_URL=mongodb://mongodb:${MONGODB_PORT}/${MONGODB_DATABASE}
+    ports:
+      - ${MONGODB_PORT}:${MONGODB_PORT}
+    volumes:
+      - volume:/data/db
+
+volumes:
+  volume:
+
+networks:
+  default:
+    name: mongo_network
