@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "typescript-pgtyped-starter",
-  "version": "0.0.3-alpha",
+  "version": "0.0.4-alpha",
   "scripts": {
     "env": "unset NODE_ENV && export $(grep '^#' .env -v | xargs)",
     "env:production": "unset NODE_ENV && export $(grep '^#' .env.production -v | xargs)",
@@ -12,10 +12,10 @@
     "webpack:build": "unset NODE_ENV && dotenv -e .env webpack --config tools/webpack/webpack.config.js",
     "webpack:start": "webpack serve --config tools/webpack/webpack.config.js",
 
-    "db:postgresql:reset": "npm run -s env | docker-compose --env-file .env --file ./server/database/compose-postgresql.yml down --volumes",
-    "db:postgresql:compose": "npm run -s db:postgresql:reset && docker-compose --env-file .env --file ./server/database/compose-postgresql.yml up --no-start",
-    "db:postgresql:start": "docker-compose --env-file .env --file ./server/database/compose-postgresql.yml start",
-    "db:postgresql:stop": "docker-compose --env-file .env --file ./server/database/compose-postgresql.yml stop",
+    "db:postgres:reset": "npm run -s env | docker-compose --env-file .env --file ./server/database/compose-postgresql.yml down --volumes",
+    "db:postgres:compose": "npm run -s db:postgresql:reset && docker-compose --env-file .env --file ./server/database/compose-postgresql.yml up --no-start",
+    "db:postgres:start": "docker-compose --env-file .env --file ./server/database/compose-postgresql.yml start",
+    "db:postgres:stop": "docker-compose --env-file .env --file ./server/database/compose-postgresql.yml stop",
 
     "db:mongo:reset": "npm run -s env | docker-compose --env-file .env --file ./server/database/compose-mongo.yml down --volumes",
     "db:mongo:compose": "npm run -s db:mongo:reset && docker-compose --env-file .env --file ./server/database/compose-mongo.yml up --no-start",

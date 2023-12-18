@@ -12,6 +12,7 @@ This is a standalone full-stack starter project that you can customize to your l
 - Node.js
 - TypeScript
 - PostgreSQL (Dockerized)
+- MongoDB (Dockerized)
 - PgTyped (Automatic Typesafe Query Generation)
 - Express & typescript-rest (REST API)
 - Webpack
@@ -42,24 +43,32 @@ This is a standalone full-stack starter project that you can customize to your l
 3. You also have "query files", which are also are raw SQL files. These contain all of the queries that you need for your application. You can maintain them here: `server/api/models/queries`.
 3. The `pgtyped:watch` command automatically parses your query files and on each change you save to the files it extracts all the queries and generates strictly typed TypeScript queries in `server/api/__generated__`.
 
+## MongoDB
+
+All of the `db:postgres` commands referenced later in this document have a `db:mongo` variant the does what you would expect. Why? MongoDB is an incredibly useful tool for all kinds of situations. Most notably, when you have documents that are unstructured by nature or need to grow rapidly in an organic way it can be unwise to concern yourself with schemas too quickly. Despite many advancements with JSON in PostgreSQL it is still not as frictionless or well equipped for some tasks.
+
+However, no other tooling around MongoDB is currently provided. For more insight into the MongoDB commands see the `scripts` section of the `package.json` file.
+
 ## Command Reference
 
 |Command|Description|
 |-------|-----------|
-|`npm run webpack:build`|Builds and bundles the front-end for development deployment.|
-|`npm run webpack:build:production`|Builds and bundles the front-end for production deployment.|
-|`npm run webpack:start`|Starts a local web server for development.|
-|`npm run db:reset`|Shuts down dockerized database container server and deletes it.|
-|`npm run db:compose`|Runs the `db:reset` command and then initializes<br />the dockerized database server.<br />|
-|`npm run db:compose:production`|Runs the `db:reset` command and then initializes<br />the dockerized database server with production environment vars. It is<br /> better to use Kubernetes in actual production environments.<br />|
-|`npm run db:start`|Runs the database server container using development environment vars.<br />|
-|`npm run db:start:production`|Runs the database server container using production environment vars.<br />|
+|`npm run db:postgres:reset`|Shuts down dockerized database container server and deletes it.|
+|`npm run db:postgres:compose`|Runs the `db:reset` command and then initializes<br />the dockerized database server.<br />|
+|`npm run db:postgres:start`|Starts the database server container.<br />|
+|`npm run db:postgres:start`|Stops the database server container.<br />|
 |`npm run pgtyped:watch`|Watches your `models/queries` SQL files for changes and generates<br /> files containing typesafe queries. Requires a terminal session.<br />|
 |`npm run pgtyped:all`|Runs `db:reset`, `db:compose`, `db:start`, and then `pgtyped:watch`.<br />  Requires a terminal session. <br />|
 |`npm run api:express:serve`|Runs an express-based API server with the<br /> [https://github.com/thiagobustamante/typescript-rest](typescript-rest) extension.<br /> Requires a terminal session.<br />|
+|`npm run webpack:build`|Builds and bundles the front-end for development deployment.|
+|`npm run webpack:build:production`|Builds and bundles the front-end for production deployment.|
+|`npm run webpack:start`|Starts a local web server for development.|
 |`npm run utils:prettier`|Runs the auto-formatter on the codebase.|
 
 ## Resources
+
+Relevant links for future research and evaluation.
+
 - https://github.com/shfrmn/pgtyped-model - Whoa. Putting this at the top.
 - https://github.com/thiagobustamante/typescript-rest
   - https://github.com/vrudikov/typescript-rest-boilerplate - JWT support like theirs is needed maybe to add morgan logging as well.
