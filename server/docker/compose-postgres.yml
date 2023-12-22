@@ -1,0 +1,32 @@
+version: "3.9"
+
+name: ${DOCKER_PROJECT}
+
+services:
+  postgresql:
+    container_name: ${POSTGRES_DOCKER_CONTAINER}
+    hostname: ${POSTGRES_DOCKER_CONTAINER}
+    image: postgres:14.6-alpine
+    restart: unless-stopped
+    environment:
+      - POSTGRES_HOST=${POSTGRES_HOST}
+      - POSTGRES_PORT=${POSTGRES_PORT}
+      - POSTGRES_DB=${POSTGRES_DATABASE}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    ports:
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
+    expose:
+      - ${POSTGRES_PORT}
+    volumes:
+      - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - external-volume:/var/lib/postgresql/data
+
+volumes:
+  external-volume:
+    name: ${POSTGRES_DOCKER_VOLUME}
+
+networks:
+  default:
+    name: ${DOCKER_NETWORK}
+    external: true

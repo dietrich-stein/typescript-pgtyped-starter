@@ -1,0 +1,33 @@
+version: "3.9"
+
+name: ${DOCKER_PROJECT}
+
+# PGRST_OPENAPI_SERVER_PROXY_URI
+# Using "localhost" here is important so that it doesn't put the Docker IP
+# into the hostname for the browser-initiated request calls
+
+# PGRST_DB_ANON_ROLE
+# The database role to use when executing commands on behalf of unauthenticated
+# clients. When unset anonymous access will be blocked.
+
+services:
+  postgrest:
+    container_name: ${POSTGREST_DOCKER_CONTAINER}
+    hostname: ${POSTGREST_DOCKER_CONTAINER}
+    image: postgrest/postgrest
+    restart: unless-stopped
+    environment:
+      - PGRST_DB_URI=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_DOCKER_CONTAINER}:${POSTGRES_PORT}/${POSTGRES_DATABASE}
+      - PGRST_DB_SCHEMA=tps_api
+      - PGRST_DB_ANON_ROLE=tps_anonymous
+      - PGRST_OPENAPI_SERVER_PROXY_URI=http://localhost:${POSTGREST_PORT}
+      - PGRST_SERVER_PORT=${POSTGREST_PORT}
+    ports:
+      - ${POSTGREST_PORT}:${POSTGREST_PORT}
+    expose:
+      - ${POSTGREST_PORT}
+
+networks:
+  default:
+    name: ${DOCKER_NETWORK}
+    external: true

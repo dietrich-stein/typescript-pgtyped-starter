@@ -76,3 +76,10 @@ Relevant links for future research and evaluation.
     - https://github.com/jaredhanson/passport
 - [Graphile Starter](https://github.com/graphile/starter) - For the purposes of this repo it's just an excellent example of a mature full-stack starter.
   - https://www.graphile.org/postgraphile/
+
+## Notes
+
+```
+docker pull postgrest/postgrest
+docker pull swaggerapi/swagger-ui
+```

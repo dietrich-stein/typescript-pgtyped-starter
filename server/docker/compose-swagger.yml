@@ -1,0 +1,21 @@
+version: "3.9"
+
+name: ${DOCKER_PROJECT}
+
+services:
+  swagger:
+    container_name: ${SWAGGER_DOCKER_CONTAINER}
+    hostname: ${SWAGGER_DOCKER_CONTAINER}
+    image: swaggerapi/swagger-ui
+    restart: unless-stopped
+    environment:
+      - API_URL=http://localhost:${POSTGREST_PORT}/
+    ports:
+      - ${SWAGGER_PORT}:${SWAGGER_PORT}
+    expose:
+      - ${SWAGGER_PORT}
+
+networks:
+  default:
+    name: ${DOCKER_NETWORK}
+    external: true

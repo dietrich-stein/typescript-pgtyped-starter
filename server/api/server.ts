@@ -10,11 +10,11 @@ import { Server, Path, GET, PathParam } from "typescript-rest";
 
 const { Client } = pg;
 const dbConfig = {
-  host: process.env.POSTGRESQL_HOST,
-  user: process.env.POSTGRESQL_USER,
-  password: process.env.POSTGRESQL_PASSWORD,
-  database: process.env.POSTGRESQL_DATABASE,
-  port: Number(process.env.POSTGRESQL_PORT)
+  host: process.env.POSTGRES_HOST,
+  user: process.env.POSTGRES_USER,
+  password: process.env.POSTGRES_PASSWORD,
+  database: process.env.POSTGRES_DATABASE,
+  port: Number(process.env.POSTGRES_PORT)
 };
 
 @Path("/books")
