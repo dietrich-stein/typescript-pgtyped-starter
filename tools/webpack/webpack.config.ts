@@ -17,13 +17,18 @@ const mode = process.env.NODE_ENV ?? 'development';
 const isProd = mode === 'production';
 const isDev = !isProd;
 
+const port = process.env.WEBPACK_DEV_SERVER_PORT ?? '8080';
+
+const ROOT = path.resolve( __dirname, '../../framework/typescript/src' );
+const DESTINATION = path.resolve( __dirname, '../../public/dist');
+
 /**
  * Define paths to any stylesheets you wish to include at the top of the CSS bundle.
  */
-/*const stylesheets = [
-  path.resolve(__dirname, './framework') + '/typescript/src/styles/mvp.css',
-  path.resolve(__dirname, './framework') + '/typescript/src/styles/main.scss'
-];*/
+const stylesheets = [
+  path.resolve(__dirname, '../../framework/typescript/src/styles') + '/mvp.css',
+  path.resolve(__dirname, '../../framework/typescript/src/styles') + '/main.scss'
+];
 
 /**
  * Change this to `true` to generate source maps alongside your production bundle.
@@ -32,12 +37,15 @@ const isDev = !isProd;
 const sourceMapsInProduction = false;
 
 const config: MergedConfiguration = {
+  context: ROOT,
   mode: isProd ? 'production' : 'development',
   entry: {
     bundle: [
-      //...stylesheets,
-      path.resolve(__dirname, './framework') + '/typescript/index.ts'
+      ...stylesheets,
+      //path.resolve(__dirname, '../../framework/typescript/src') + 'main.ts'
+      './main.ts'
     ]
+    //'main': './main.ts'
   },
   resolve: {
     extensions: [
@@ -47,7 +55,11 @@ const config: MergedConfiguration = {
       '.scss',
       '.css'
     ],
-    mainFiles: ['index'],
+    modules: [
+      ROOT,
+      'node_modules'
+    ],
+    mainFiles: ['index','main'],
     mainFields: [
       'browser',
       'module',
@@ -55,19 +67,18 @@ const config: MergedConfiguration = {
     ],
   },
   output: {
-    path: path.resolve(__dirname, 'public'),
-    publicPath: '/dist/',
-    filename: '[name].js',
-    chunkFilename: '[name].[id].js'
+    path: DESTINATION,
+    publicPath: '/dist/',//'/dist/', //  determines where the bundles should be served from, and takes precedence over contentBase which should only be used for non-bundled statics
+    filename: 'bundle.js',
+    //chunkFilename: '[name].[id].js'
   },
   module: {
     rules: [
-      /*
       {
         test: /\.tsx?$/,
         include: [
-          path.resolve(__dirname, 'framework/typescript'),
-          path.resolve(__dirname, 'framework/typescript/src'),
+          path.resolve(__dirname, '../../framework/typescript/src'),
+          //path.resolve(__dirname, 'framework/typescript/src'),
         ],
         exclude: [
           /node_modules/,
@@ -96,8 +107,6 @@ const config: MergedConfiguration = {
           }
         }
       },
-      */
-      /*
       {
         test: /\.(scss|sass)$/,
         use: [
@@ -118,8 +127,6 @@ const config: MergedConfiguration = {
           'sass-loader'
         ]
       },
-      */
-      /*
       {
         test: /\.css$/,
         use: [
@@ -127,7 +134,6 @@ const config: MergedConfiguration = {
           'css-loader'
         ]
       },
-      */
       {
         test:  /\.(svg|ico|jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|cur|ani|pdf)(\?.*)?$/,
         loader: 'file-loader',
@@ -145,13 +151,12 @@ const config: MergedConfiguration = {
   devtool: isProd ? false : 'source-map',
   devServer: {
     hot: true,
+    port,
     static: {
-      directory: path.join(__dirname, 'public'),
+      directory: path.join(__dirname, '../../public'),
     }
   },
   stats: {
-    //noInfo: false,
-    //contentBase: './dist',
     chunks: true,
     chunkModules: true,
     modules: true,

@@ -35,10 +35,8 @@
     ],
     "baseUrl": ".",
 		"paths": {
-			"framework/typescript/src/*": [
-        //"framework/*",
-        "framework/typescript/src/*"
-      ],
+      "framework/typescript/*": ["./framework/typescript/*"],
+      "framework/typescript/src/*": ["./framework/typescript/src/*"],
 		},
     "verbatimModuleSyntax": false,
 		"importsNotUsedAsValues": "remove"
@@ -49,8 +47,8 @@
     }
   },
   "include": [
-    "framework/index.ts",
-    "framework/typescript/src/**/*.ts",
+    //"framework/index.ts",
+    "framework/typescript/src/**/*",
     "tools/webpack/webpack.config.ts"
   ],
   "exclude": [
