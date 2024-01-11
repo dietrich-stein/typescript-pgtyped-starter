@@ -24,8 +24,6 @@ services:
       - PGRST_SERVER_PORT=${POSTGREST_PORT}
     ports:
       - ${POSTGREST_PORT}:${POSTGREST_PORT}
-    expose:
-      - ${POSTGREST_PORT}
 
 networks:
   default:

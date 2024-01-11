@@ -4,22 +4,19 @@ name: ${DOCKER_PROJECT}
 
 services:
   mongo:
+    image: mongo:6-jammy
     container_name: ${MONGODB_DOCKER_CONTAINER}
     hostname: ${MONGODB_DOCKER_CONTAINER}
-    image: mongo:6-jammy
     restart: unless-stopped
     environment:
       - MONGODB_URL=mongodb://mongodb:${MONGODB_PORT}/${MONGODB_DATABASE}
     ports:
       - ${MONGODB_PORT}:${MONGODB_PORT}
-    expose:
-      - ${MONGODB_PORT}
     volumes:
       - external-volume:/data/db
 
 volumes:
   external-volume:
-    external: true
     name: ${MONGODB_DOCKER_VOLUME}
 
 networks:

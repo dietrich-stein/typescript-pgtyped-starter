@@ -4,6 +4,7 @@ name: ${DOCKER_PROJECT}
 
 services:
   pocketbase:
+    image: pocketbase:latest
     container_name: ${POCKETBASE_DOCKER_CONTAINER}
     hostname: ${POCKETBASE_DOCKER_CONTAINER}
     build:
@@ -12,12 +13,31 @@ services:
         PROJECT_OWNER: ${PROJECT_OWNER}
         PROJECT_EMAIL: ${PROJECT_EMAIL}
         POCKETBASE_PORT: ${POCKETBASE_PORT}
-    image: pocketbase:latest
     restart: unless-stopped
     volumes:
+      - ./pocketbase/import.csv:/app/import.csv
       - external-volume:/app/data
     ports:
       - ${POCKETBASE_PORT}:${POCKETBASE_PORT}
+
+    # NOTE: Pocketbase migrations and bulk import are currently limited.
+    # Below was my attempt to prepare CSV import as part of the docker composition.
+    # It failed because my data would require tokenizing the commas in my data and other issues.
+    # > npm run pocketbase:shell
+    # > sqlite3 /app/data/pb_data/data.db -cmd 'PRAGMA journal_mode = OFF' -cmd '.mode csv' -cmd '.separator ","' '.import /app/import.csv tps'
+    # https://github.com/pocketbase/pocketbase/issues/48#issuecomment-1321269214
+    # ^ Even if it did import this way I would still need a custom entry for the "tps" table in the _collections table to make it really work.
+
+    # Pasting JSON into the admin form will not suffice.
+
+    # Using "pocketbase serve --migrationsDir" is interesting. https://pocketbase.io/docs/js-migrations/#running-raw-sql-statements
+    # You can write JavaScript files that it executes using an internal JS engine.
+    # I refuse to harbour JavaScript within a repo that targets the internal JS engine of a binary.
+    # Naming these files `filename.pocketbase.js` might be a suitable compromise for some.
+
+    # I will have to write my own importer using the API provided by the PocketBase JavaScript SDK:
+    #   https://github.com/pocketbase/js-sdk
+
 
 volumes:
   external-volume:

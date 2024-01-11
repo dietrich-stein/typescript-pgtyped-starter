@@ -12,8 +12,6 @@ services:
       - API_URL=http://localhost:${POSTGREST_PORT}/
     ports:
       - ${SWAGGER_PORT}:${SWAGGER_PORT}
-    expose:
-      - ${SWAGGER_PORT}
 
 networks:
   default:
