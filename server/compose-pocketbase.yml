@@ -6,7 +6,12 @@ services:
   pocketbase:
     container_name: ${POCKETBASE_DOCKER_CONTAINER}
     hostname: ${POCKETBASE_DOCKER_CONTAINER}
-    build: ./pocketbase
+    build:
+      context: ./pocketbase
+      args:
+        PROJECT_OWNER: ${PROJECT_OWNER}
+        PROJECT_EMAIL: ${PROJECT_EMAIL}
+        POCKETBASE_PORT: ${POCKETBASE_PORT}
     image: pocketbase:latest
     restart: unless-stopped
     volumes:

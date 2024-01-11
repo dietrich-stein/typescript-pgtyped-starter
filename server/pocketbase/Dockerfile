@@ -1,9 +1,18 @@
 # syntax=docker/dockerfile:1
-
 FROM alpine:latest
-LABEL "maintainer"="Dietrich Stein <dietrich.stein@gmail.com>"
+
+ARG PROJECT_OWNER
+ENV env_name=$PROJECT_OWNER
+
+ARG PROJECT_EMAIL
+ENV env_name $PROJECT_OWNER
+
+ARG PROJECT_EMAIL
+ENV env_name $PROJECT_EMAIL
 
 ARG POCKETBASE_VERSION=0.20.5
+
+LABEL "maintainer"="${PROJECT_OWNER} <${PROJECT_EMAIL}>"
 
 RUN apk add --no-cache \
     ca-certificates \
@@ -18,6 +27,6 @@ RUN unzip /app/pocketbase/pocketbase.zip -d /app/pocketbase && \
     chmod +x /app/pocketbase/pocketbase && \
     rm /app/pocketbase/pocketbase.zip
 
-EXPOSE 8090
+EXPOSE ${POCKETBASE_PORT}
 
-CMD [ "/app/pocketbase/pocketbase", "serve", "--http=0.0.0.0:8090", "--dir=/app/data/pb_data", "--publicDir=/app/data/pb_public" ]
+CMD [ "/app/pocketbase/pocketbase", "serve", "--http=0.0.0.0:${POCKETBASE_PORT}", "--dir=/app/data/pb_data", "--publicDir=/app/data/pb_public" ]
