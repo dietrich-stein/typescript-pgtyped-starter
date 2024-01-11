@@ -2,13 +2,12 @@ import 'dotenv/config';
 import path from 'path';
 import Webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
+
 import Autoprefixer from 'autoprefixer';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import CSSMinimizerPlugin from 'css-minimizer-webpack-plugin';
-
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 
-//interface Configuration extends WebpackConfiguration {
 interface MergedConfiguration extends Webpack.Configuration {
   devServer?: WebpackDevServer.Configuration;
 }
@@ -19,15 +18,17 @@ const isDev = !isProd;
 
 const port = process.env.WEBPACK_DEV_SERVER_PORT ?? '8080';
 
-const ROOT = path.resolve( __dirname, '../../framework/typescript/src' );
-const DESTINATION = path.resolve( __dirname, '../../public/dist');
+const DIR_SOURCE_CONTEXT = path.resolve( __dirname, 'project/src');
+const DIR_BUNDLE_DIST = path.resolve( __dirname, 'project/public/dist');
+const DIR_STATIC_ROOT = path.resolve( __dirname, 'project/public');
+const DIR_STYLES_ROOT = path.resolve( __dirname, 'project/styles');
 
 /**
  * Define paths to any stylesheets you wish to include at the top of the CSS bundle.
  */
 const stylesheets = [
-  path.resolve(__dirname, '../../framework/typescript/src/styles') + '/mvp.css',
-  path.resolve(__dirname, '../../framework/typescript/src/styles') + '/main.scss'
+  DIR_STYLES_ROOT + '/mvp.css',
+  DIR_STYLES_ROOT + '/main.scss'
 ];
 
 /**
@@ -37,13 +38,13 @@ const stylesheets = [
 const sourceMapsInProduction = false;
 
 const config: MergedConfiguration = {
-  context: ROOT,
+  context: DIR_SOURCE_CONTEXT,
   mode: isProd ? 'production' : 'development',
   entry: {
     bundle: [
       ...stylesheets,
-      //path.resolve(__dirname, '../../framework/typescript/src') + 'main.ts'
-      './main.ts'
+      DIR_SOURCE_CONTEXT + '/main.ts'
+      // './main.ts'
     ]
     //'main': './main.ts'
   },
@@ -56,7 +57,7 @@ const config: MergedConfiguration = {
       '.css'
     ],
     modules: [
-      ROOT,
+      DIR_SOURCE_CONTEXT,
       'node_modules'
     ],
     mainFiles: ['index','main'],
@@ -67,7 +68,7 @@ const config: MergedConfiguration = {
     ],
   },
   output: {
-    path: DESTINATION,
+    path: DIR_BUNDLE_DIST,
     publicPath: '/dist/',//'/dist/', //  determines where the bundles should be served from, and takes precedence over contentBase which should only be used for non-bundled statics
     filename: 'bundle.js',
     //chunkFilename: '[name].[id].js'
@@ -77,8 +78,7 @@ const config: MergedConfiguration = {
       {
         test: /\.tsx?$/,
         include: [
-          path.resolve(__dirname, '../../framework/typescript/src'),
-          //path.resolve(__dirname, 'framework/typescript/src'),
+          DIR_SOURCE_CONTEXT,
         ],
         exclude: [
           /node_modules/,
@@ -153,7 +153,7 @@ const config: MergedConfiguration = {
     hot: true,
     port,
     static: {
-      directory: path.join(__dirname, '../../public'),
+      directory: DIR_STATIC_ROOT,
     }
   },
   stats: {

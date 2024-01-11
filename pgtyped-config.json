@@ -3,10 +3,10 @@
     {
       "mode": "sql",
       "include": "**/*.sql",
-      "emitTemplate": "./server/api/__generated__/{{name}}.queries.ts"
+      "emitTemplate": "./services/api/__generated__/{{name}}.queries.ts"
     }
   ],
-  "srcDir": "./server/api/models/queries/",
+  "srcDir": "./services/api/models/queries/",
   "failOnError": false,
   "camelCaseColumnNames": false
 }

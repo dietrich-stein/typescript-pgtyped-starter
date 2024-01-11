@@ -1,0 +1,59 @@
+{
+  // This is an alias to @tsconfig/node16: https://github.com/tsconfig/bases
+  "extends": "ts-node/node16/tsconfig.json",
+  "compilerOptions": {
+    "declaration": false, // Generate corresponding .d.ts file
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "noUnusedParameters": false, // Report errors on unused parameters
+    "noUnusedLocals": false, // Report errors on unused locals
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "es2017"
+    ],
+    "module": "CommonJS", // ESNext? // Specify module code generation
+    "target": "ES2017", // ES2016 = ES7, ES2017 = ES8
+
+    "strict": true, // Enable all strict type checking options
+    "esModuleInterop": true, // Disables namespace imports (import * as fs from "fs") and enables CJS/AMD/UMD style imports (import fs from "fs")
+    "skipLibCheck": true, // Skip type checking of all declaration files
+    "forceConsistentCasingInFileNames": true, // Disallow inconsistently-cased references to the same file.
+    "moduleResolution": "node", // Resolve modules using Node.js style
+
+    "allowJs": true, // Allow JavaScript files to be compiled
+    "allowSyntheticDefaultImports": true, // Allow default imports from modules with no default export
+    "isolatedModules": true, // Unconditionally emit imports for unresolved files
+    "resolveJsonModule": true, // Include modules imported with .json extension
+    "noEmit": true, // Do not emit output (meaning do not compile code, only perform type checking)
+    "jsx": "preserve", // Support JSX in .tsx files
+    "sourceMap": true, // Generate corresponding .map file
+    "incremental": true, // Enable incremental compilation by reading/writing information from prior compilations to a file on disk
+    "noFallthroughCasesInSwitch": true, // Report errors for fallthrough cases in switch statement
+    "types": [
+      "webpack"
+    ],
+    "baseUrl": ".",
+		"paths": {
+      //"framework/typescript/*": ["./framework/typescript/*"],
+      //"framework/typescript/src/*": ["./framework/typescript/src/*"],
+		},
+    "verbatimModuleSyntax": false,
+		"importsNotUsedAsValues": "remove"
+  },
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
+  },
+  "include": [
+    //"framework/index.ts",
+    //"framework/typescript/src/**/*",
+    "webpack.config.ts"
+  ],
+  "exclude": [
+    "node_modules/*",
+    //"public/*", // ts files should not be in /public
+    //"server/api/*" // has separate tsconfig for experimental decorator support
+  ]
+}

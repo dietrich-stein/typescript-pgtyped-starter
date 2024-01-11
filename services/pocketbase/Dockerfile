@@ -1,4 +1,5 @@
 # syntax=docker/dockerfile:1
+
 FROM keinos/sqlite3:latest
 
 ARG PROJECT_OWNER
@@ -12,7 +13,7 @@ ENV POCKETBASE_PORT=$POCKETBASE_PORT
 
 ARG POCKETBASE_VERSION=0.20.5
 
-LABEL "maintainer"="${PROJECT_OWNER} <${PROJECT_EMAIL}>"
+LABEL maintainer="${PROJECT_OWNER} <${PROJECT_EMAIL}>"
 
 USER root
 
