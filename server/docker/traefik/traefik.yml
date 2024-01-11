@@ -1,0 +1,35 @@
+# HERE BE DRAGONS
+# In a nut shell, do you want to generate this file from a template?
+# Do you want to edit it manually all of the time?
+# Did you answer "No" twice?
+# Ok, turn around, and forget you saw this.
+# All of this can be passsed into the service with command parameters.
+
+# log:
+#   level: DEBUG
+#   filepath: "/etc/traefik/log/traefik.log"
+
+# accesslog: true
+
+# ping: true
+
+# api:
+#   dashboard: true
+#   debug: true
+#   insecure: true
+
+# entryPoints:
+#   http:
+#     address: ":80"
+#   https:
+#     address: ":443"
+
+# providers:
+#   docker:
+#     exposedByDefault: false
+#       network: "internet"
+
+# tls:
+#   certificates:
+#     - certFile: /certs/selfsigned.crt
+#     - keyFile: /certs/selfsigned.key

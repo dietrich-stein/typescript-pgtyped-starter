@@ -1,0 +1,100 @@
+version: '3.9'
+
+services:
+  traefik:
+    image: traefik:v2.10
+    restart: 'always'
+    command:
+      # Provider
+      - '--providers.docker'
+      - '--providers.docker.exposedbydefault=${TRAEFIK_EXPOSED_BY_DEFAULT:-false}'
+      - '--providers.docker.network=make-my-server_srv'
+
+      # Entrypoints
+      - '--entrypoints.http .address=:${TRAEFIK_HTTP_PORT:-80}'
+      - '--entrypoints.http.http.redirections.entrypoint.to=https'
+      - '--entrypoints.https.address=:${TRAEFIK_HTTPS_PORT:-443}'
+
+      # Let's Encrypt
+      - '--certificatesresolvers.myresolver.acme.email=${PROJECT_EMAIL:-admin@localhost}'
+      - '--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=http'
+      - '--certificatesresolvers.myresolver.acme.httpchallenge=true'
+      - '--entrypoints.https.http.tls.certresolver=myresolver'
+
+      # HTTP/3
+      - '--experimental.http3=true'
+      - '--entrypoints.https.http3'
+
+      # Logs
+      - '--accesslog.filepath=/logs/access.log'
+      - '--accesslog.format=json'
+      - '--log.filepath=/logs/traefik.log'
+      - '--log.format=json'
+      - '--log.level=${TRAEFIK_LOG_LEVEL:-ERROR}'
+      - '--metrics.prometheus.addrouterslabels'
+
+      # Misc
+      - '--api.dashboard'
+      - '--entrypoints.https.http.middlewares=compress@file,headers@file${TRAEFIK_PLUGINS:-}'
+      - '--experimental.plugins.fail2ban.modulename=github.com/tommoulard/fail2ban'
+      - '--experimental.plugins.fail2ban.version=v0.6.0'
+      - '--global.checknewversion=${TRAEFIK_CHECK_NEW_VERSION:-false}'
+      - '--global.sendanonymoususage=${TRAEFIK_SEND_ANONYMOUS_USAGE:-false}'
+      - '--ping'
+      - '--providers.file.directory=/configs/'
+      - '--providers.file.watch=true'
+
+    # environment:
+    #   - 'TZ=${TZ:-Europe/Paris}'
+
+    ports:
+      - '${TRAEFIK_HTTP_PORT:-80}:${TRAEFIK_HTTP_PORT:-80}'
+      - '${TRAEFIK_HTTPS_PORT:-443}:${TRAEFIK_HTTPS_PORT:-443}'
+      - '${TRAEFIK_DASHBOARD_PORT:-8082}:${TRAEFIK_DASHBOARD_PORT:-8082}'
+
+    volumes:
+      # This is not the way. We need environment vars that always work.
+      # - ./traefik/traefik.yml:/etc/traefik/traefik.yaml
+
+      # Copy traefik logs locally so we can check them out without having to connect to traefik container
+      # (where Traefik writes logs is defined in static configuration)
+      - './traefik/logs:/logs'
+
+      # Note: Paranoid androids know that if the Traefik container is compromised then it is
+      # game over for the host due to this. There are ways of mitigating but uh; yeah.
+      - '/var/run/docker.sock:/var/run/docker.sock'
+
+      # Share files between Traefik container and host.
+      - './configs:/configs'
+
+    networks:
+      # Public network only so that ports opened by traefik can be accessed externally
+      - ${DOCKER_NETWORK_PUBLIC}
+
+    # https://doc.traefik.io/traefik/reference/dynamic-configuration/docker/
+    labels:
+      traefik.enable: true
+      traefik.http.middlewares.basic_auth.basicauth.removeHeader: true
+      # Password is bcrypted a la: https://bcrypt-generator.com/
+      traefik.http.middlewares.basic_auth.basicauth.users: '${TRAEFIK_DASHBOARD_USER}:${TRAEFIK_DASHBOARD_PASSWORD}'
+      traefik.http.routers.traefik.middlewares: 'basic_auth@docker'
+      traefik.http.routers.traefik.rule: 'Host(`traefik.${PROJECT_DOMAIN:-localhost}`)'
+      traefik.http.routers.traefik.service: 'api@${DOCKER_NETWORK_PRIVATE}'
+
+      # Enable the API to be a service to access
+      # traefik.http.routers.api.service: 'api@${DOCKER_NETWORK_PRIVATE}'
+
+    healthcheck:
+      test: ['CMD', 'traefik', 'healthcheck', '--ping']
+
+networks:
+  # You MUST manually make sure these match the environment var values.
+  # This is a limit of Docker compose syntax needing a workaround.
+
+  # DOCKER_NETWORK_PUBLIC="tps_network_public"
+  tps_network_public:
+    external: true
+
+  # DOCKER_NETWORK_PRIVATE="tps_network_private"
+  tps_network_private:
+    external: false

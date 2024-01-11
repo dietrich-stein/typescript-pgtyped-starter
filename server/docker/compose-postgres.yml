@@ -28,5 +28,5 @@ volumes:
 
 networks:
   default:
-    name: ${DOCKER_NETWORK}
+    name: ${DOCKER_NETWORK_PUBLIC}
     external: true
