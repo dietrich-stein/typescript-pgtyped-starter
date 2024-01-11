@@ -1,0 +1,24 @@
+version: "3.9"
+
+name: ${DOCKER_PROJECT}
+
+services:
+  pocketbase:
+    container_name: ${POCKETBASE_DOCKER_CONTAINER}
+    hostname: ${POCKETBASE_DOCKER_CONTAINER}
+    build: ./pocketbase
+    image: pocketbase:latest
+    restart: unless-stopped
+    volumes:
+      - external-volume:/app/data
+    ports:
+      - ${POCKETBASE_PORT}:${POCKETBASE_PORT}
+
+volumes:
+  external-volume:
+    name: ${POCKETBASE_DOCKER_VOLUME}
+
+networks:
+  default:
+    name: ${DOCKER_NETWORK_PUBLIC}
+    external: true
